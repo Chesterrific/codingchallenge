@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import './App.css';
+
+// Pages
+import Login from './pages/Login';
+import Welcome from './pages/Welcome';
+
 // Components
-import Form from './components/Form.js';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
 
@@ -39,15 +45,42 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <div className={`${JSON.parse(localStorage.getItem('loginStatus')) ? '' : 'hidden'}`}>Welcome {username}!</div>
-      <Form
-        login={login}
-        setLogin={setLogin}
-        username={username}
-        setUsername={setUsername}
-      />
-    </div>
+    <Router>
+      <div className="App">
+        <Switch>
+          <Route
+            path='/'
+            render={props => (
+              login ?
+                <Welcome
+                  {...props}
+                  setLogin={setLogin}
+                  username={username}
+                  setUsername={setUsername} /> :
+                <Login
+                  {...props}
+                  login={login}
+                  setLogin={setLogin}
+                  username={username}
+                  setUsername={setUsername}
+                />
+            )}
+          />
+          {/* <Route
+            path='/'
+            render={props => (
+              <Login
+                {...props}
+                login={login}
+                setLogin={setLogin}
+                username={username}
+                setUsername={setUsername}
+              />
+            )}
+          /> */}
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

@@ -10,6 +10,6 @@
   visibility: hidden;
 }
 
-form input{
+.login input{
   margin-bottom: 10px;
 }

@@ -1,28 +1,32 @@
 import React from 'react';
+// import { useHistory } from 'react-router-dom';
 
-export default function Form({ login, setLogin, username, setUsername }) {
+export default function Form(props) {
 
   let localUser = '';
+  // let history = useHistory();
 
   const submitLogin = (e) => {
-    // Prevent page from reloadign on button press
-    e.preventDefault();
+    // Prevent page from reloading on button press
+    // e.preventDefault();
 
     // Check if username is blank
-    if (localUser !== '') {
+    if (localUser === '') {
+      alert("Username cannot be empty!");
+    } else {
       localStorage.setItem('loginStatus', 'true');
       localStorage.setItem('username', localUser);
-      setUsername(localUser);
-      setLogin(true);
-      alert('Welcome ' + localUser + '!');
-    } else {
-      alert("Username cannot be empty!");
+      props.setUsername(localUser);
+      props.setLogin(true);
+      // history.push('/welcome');
     }
   }
 
   const submitLogOut = () => {
     localStorage.setItem('loginStatus', 'false');
-    setLogin(false);
+    props.setLogin(false);
+    props.setUsername('');
+    document.getElementById('username').value = '';
   }
 
   // Set username
@@ -31,13 +35,13 @@ export default function Form({ login, setLogin, username, setUsername }) {
   }
 
   return (
-    <form className="login">
-      <label htmlFor="username">Username:</label>
-      <input onChange={usernameHandler} type="text" name="username" />
-      <label htmlFor="password">Password:</label>
+    <div className="login">
+      <label>Username:</label>
+      <input onChange={usernameHandler} type="text" name="username" id='username' />
+      <label>Password:</label>
       <input type="password" name="password" />
-      <button onClick={submitLogin} type='submit' className={`${login ? "hidden" : ""}`}>Log In</button>
-      <button onClick={submitLogOut} type='submit' className={`${login ? "" : "hidden"}`}>Log Out</button>
-    </form>
+      <button onClick={submitLogin} type='submit' className={`${props.login ? "hidden" : ""}`}>Log In</button>
+      <button onClick={submitLogOut} type='submit' className={`${props.login ? "" : "hidden"}`}>Log Out</button>
+    </div>
   )
 }
