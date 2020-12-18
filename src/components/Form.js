@@ -1,14 +1,14 @@
 import React from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-export default function Form(props) {
+export default function Form({ login, setLogin, setUsername }) {
 
   let localUser = '';
-  // let history = useHistory();
+  let history = useHistory();
 
   const submitLogin = (e) => {
     // Prevent page from reloading on button press
-    // e.preventDefault();
+    e.preventDefault();
 
     // Check if username is blank
     if (localUser === '') {
@@ -16,16 +16,16 @@ export default function Form(props) {
     } else {
       localStorage.setItem('loginStatus', 'true');
       localStorage.setItem('username', localUser);
-      props.setUsername(localUser);
-      props.setLogin(true);
-      // history.push('/welcome');
+      setUsername(localUser);
+      setLogin(true);
+      history.push('/welcome');
     }
   }
 
   const submitLogOut = () => {
     localStorage.setItem('loginStatus', 'false');
-    props.setLogin(false);
-    props.setUsername('');
+    setLogin(false);
+    setUsername('');
     document.getElementById('username').value = '';
   }
 
@@ -40,8 +40,8 @@ export default function Form(props) {
       <input onChange={usernameHandler} type="text" name="username" id='username' />
       <label>Password:</label>
       <input type="password" name="password" />
-      <button onClick={submitLogin} type='submit' className={`${props.login ? "hidden" : ""}`}>Log In</button>
-      <button onClick={submitLogOut} type='submit' className={`${props.login ? "" : "hidden"}`}>Log Out</button>
+      <button onClick={submitLogin} type='submit' className={`${login ? "hidden" : ""}`}>Log In</button>
+      <button onClick={submitLogOut} type='submit' className={`${login ? "" : "hidden"}`}>Log Out</button>
     </div>
   )
 }
