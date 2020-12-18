@@ -3,7 +3,6 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import './App.css';
 
 // Components
-// import ProtectedRoute from './components/ProtectedRoute';
 import AllRoutes from './components/AllRoutes';
 
 function App() {
@@ -19,24 +18,20 @@ function App() {
     setLoaded(true);
   }, [])
 
-  // useEffect(() => {
-  //   console.log("State Login Status: " + login);
-  // }, [login])
-
   // Functions
   const checkLogin = () => {
-    // If "loginStatus" is not found in local storage
+    // If "loginStatus" is not found in local storage.
     if (localStorage.getItem('loginStatus') === null) {
       localStorage.setItem('loginStatus', 'false');
       localStorage.setItem('username', username);
       console.log('loginStatus was null.');
       console.log('Creating entry in local storage now.');
     }
-    // If "loginStatus" is found as false
+    // If "loginStatus" is found as false.
     else if (JSON.parse(localStorage.getItem('loginStatus')) === false) {
       console.log('loginStatus was false.');
     }
-    // If "loginStatus" is found as true
+    // If "loginStatus" is found as true.
     else {
       setLogin(JSON.parse(localStorage.getItem('loginStatus')));
       setUsername(localStorage.getItem('username'));
@@ -44,6 +39,7 @@ function App() {
     }
   }
 
+  // Prevent any rendering until data from local storage has been retrieved.
   if (!loaded) {
     return null;
   }

@@ -6,10 +6,24 @@
   justify-content: center;
 }
 
-.hidden{
+.hidden {
   visibility: hidden;
 }
 
-.login input{
+.login input {
   margin-bottom: 10px;
+}
+
+.welcome {
+  display: flex;
+  height: 7.5vh;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  width: 50%;
+  list-style: none;
 }

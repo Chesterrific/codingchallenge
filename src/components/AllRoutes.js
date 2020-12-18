@@ -5,7 +5,7 @@ import { Route, Switch } from 'react-router-dom';
 import Login from '../pages/Login.js';
 
 // Components
-import ProtectedRoute from './ProtectedRoute.js';
+import ProtectedRoutes from './ProtectedRoutes.js';
 
 export default function AllRoutes({ login, setLogin, username, setUsername }) {
   return (
@@ -18,14 +18,13 @@ export default function AllRoutes({ login, setLogin, username, setUsername }) {
           setUsername={setUsername}
         />
       </Route>
-      <Route path='/'>
-        <ProtectedRoute
-          login={login}
-          setLogin={setLogin}
-          username={username}
-          setUsername={setUsername}
-        />
-      </Route>
+      <ProtectedRoutes
+        path='/'
+        login={login}
+        setLogin={setLogin}
+        username={username}
+        setUsername={setUsername}
+      />
     </Switch>
   )
 }
