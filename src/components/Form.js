@@ -18,7 +18,7 @@ export default function Form({ login, setLogin, setUsername }) {
       localStorage.setItem('username', localUser);
       setUsername(localUser);
       setLogin(true);
-      history.push('/welcome');
+      history.push('/');
     }
   }
 
@@ -35,7 +35,7 @@ export default function Form({ login, setLogin, setUsername }) {
   }
 
   return (
-    <div className="login">
+    <div className="login centered">
       <label>Username:</label>
       <input onChange={usernameHandler} type="text" name="username" id='username' />
       <label>Password:</label>

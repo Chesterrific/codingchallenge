@@ -14,7 +14,6 @@ export default function AllRoutes({ login, setLogin, username, setUsername }) {
         <Login
           login={login}
           setLogin={setLogin}
-          username={username}
           setUsername={setUsername}
         />
       </Route>
@@ -23,7 +22,6 @@ export default function AllRoutes({ login, setLogin, username, setUsername }) {
         login={login}
         setLogin={setLogin}
         username={username}
-        setUsername={setUsername}
       />
     </Switch>
   )

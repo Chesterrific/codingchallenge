@@ -3,7 +3,7 @@ import React from 'react';
 // Components
 import Form from '../components/Form';
 
-export default function Login({ login, setLogin, username, setUsername }) {
+export default function Login({ login, setLogin, setUsername }) {
 
   return (
     <div>

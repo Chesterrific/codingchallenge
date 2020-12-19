@@ -7,7 +7,7 @@ import Welcome from '../pages/Welcome.js';
 // Components
 import Navigation from '../components/Navigation.js';
 
-export default function AppWrapper({ login, setLogin, username, setUsername }) {
+export default function ProtectedRoutes({ login, setLogin, username, path }) {
 
   // Redirect to login page if login state is false.
   if (!login) {
@@ -24,11 +24,8 @@ export default function AppWrapper({ login, setLogin, username, setUsername }) {
         username={username}
       />
       {/* Protected routes go here. */}
-      <Route path='/welcome' exact>
+      <Route path={path} exact>
         <Welcome
-          setLogin={setLogin}
-          username={username}
-          setUsername={setUsername}
         />
       </Route>
     </div>
