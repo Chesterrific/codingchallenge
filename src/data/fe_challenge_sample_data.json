@@ -32,5 +32,22 @@
       "amount": 510028,
       "currency": "GBP"
     }
+  },
+  {
+    "first_name": "Chester",
+    "last_name": "Guinto",
+    "address": {
+      "address1": "456 Wood Ave.",
+      "address2": "#13",
+      "city": "Newark",
+      "state": "CA",
+      "zip": "94560"
+    },
+    "gender": "MALE",
+    "age": 25,
+    "order_total": {
+      "amount": 99999,
+      "currency": "USD"
+    }
   }
 ]

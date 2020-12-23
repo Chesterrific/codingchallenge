@@ -23,8 +23,8 @@ body {
 
 .welcome {
   height: 100vh;
-  justify-content: center;
   flex-direction: column;
+  padding-top: 10vh;
 }
 
 .nav {
@@ -32,4 +32,37 @@ body {
   justify-content: space-around;
   position: fixed;
   width: 100vw;
+  background-color: gray;
+}
+
+.searchDetails {
+  display: flex;
+  justify-content: space-around;
+}
+
+.data {
+  margin-top: 2.5vh;
+}
+
+.data>div {
+  text-align: center;
+}
+
+#dataHeader {
+  border: solid 1px black;
+  margin-bottom: 10px;
+  grid-auto-rows: 30px;
+}
+
+.dataEntry {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr) 3fr repeat(3, 1fr);
+  grid-auto-rows: minmax(50px, auto);
+  width: 75vw;
+}
+
+.dataEntry>div {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
