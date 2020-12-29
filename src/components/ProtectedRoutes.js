@@ -1,8 +1,9 @@
 import React from 'react'
-import { Redirect, Route } from 'react-router-dom'
+import { Redirect, Route, Switch } from 'react-router-dom'
 
 // Pages
 import Welcome from '../pages/Welcome.js';
+import UserDetail from '../pages/UserDetail.js';
 
 // Components
 import Navigation from '../components/Navigation.js';
@@ -24,10 +25,14 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
         username={username}
       />
       {/* Protected routes go here. */}
-      <Route path={path} exact>
-        <Welcome
-        />
-      </Route>
+      <Switch>
+        <Route path={path + 'userdetails/:fname/:lname/:age'} exact>
+          <UserDetail />
+        </Route>
+        <Route path={[path, '*']} exact>
+          <Welcome />
+        </Route>
+      </Switch>
     </div>
   )
 }

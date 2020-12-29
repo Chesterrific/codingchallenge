@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 // Components
 import AmountPipe from '../components/AmountPipe.js';
@@ -21,18 +22,20 @@ export default function Data({ loaded, filteredList, currency }) {
           {
             filteredList.map((item) => {
               return (
-                <div className='dataEntry' key={item.first_name + item.last_name + item.age}>
-                  <div>{item.first_name}</div>
-                  <div>{item.last_name}</div>
-                  <AddressPipe
-                    address={item.address}
-                  />
-                  <div>{item.gender}</div>
-                  <div>{item.age}</div>
-                  <AmountPipe
-                    order={item.order_total}
-                    currency={currency}
-                  />
+                <div key={item.first_name + item.last_name + item.age}>
+                  <Link className='dataEntry link' to={`/userdetails/${item.first_name}/${item.last_name}/${item.age}`}>
+                    <div>{item.first_name}</div>
+                    <div>{item.last_name}</div>
+                    <AddressPipe
+                      address={item.address}
+                    />
+                    <div>{item.gender}</div>
+                    <div>{item.age}</div>
+                    <AmountPipe
+                      order={item.order_total}
+                      currency={currency}
+                    />
+                  </Link>
                 </div>
               )
             })

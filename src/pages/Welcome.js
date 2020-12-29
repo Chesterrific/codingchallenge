@@ -24,6 +24,9 @@ export default function Welcome() {
 
   // Copy data into filteredList state.
   useEffect(() => {
+    if (!loaded) {
+      return;
+    }
     setFilteredList(data);
   }, [loaded])
 

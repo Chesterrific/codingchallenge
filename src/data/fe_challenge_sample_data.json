@@ -17,6 +17,23 @@
     }
   },
   {
+    "first_name": "Jack",
+    "last_name": "Weber",
+    "address": {
+      "address1": "94567 Side St.",
+      "address2": "#1",
+      "city": "London",
+      "state": "England",
+      "zip": "515151"
+    },
+    "gender": "MALE",
+    "age": 30,
+    "order_total": {
+      "amount": 110028,
+      "currency": "GBP"
+    }
+  },
+  {
     "first_name": "Jane",
     "last_name": "Smith",
     "address": {
@@ -37,11 +54,11 @@
     "first_name": "Chester",
     "last_name": "Guinto",
     "address": {
-      "address1": "456 Wood Ave.",
+      "address1": "456 Steel Ave.",
       "address2": "#13",
-      "city": "Newark",
+      "city": "Avocado",
       "state": "CA",
-      "zip": "94560"
+      "zip": "12345"
     },
     "gender": "MALE",
     "age": 25,
