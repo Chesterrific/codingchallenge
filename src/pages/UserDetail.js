@@ -4,7 +4,6 @@ import DataFile from '../data/fe_challenge_sample_data.json';
 import CurrencyFile from '../data/currency_symbols.json';
 
 // Components
-import AddressPipe from '../components/AddressPipe.js';
 import AmountPipe from '../components/AmountPipe.js';
 
 export default function UserDetail() {
@@ -13,6 +12,7 @@ export default function UserDetail() {
   const [currency, setCurrency] = useState([]);
   const [loaded, setLoaded] = useState(false);
   const [person, setPerson] = useState([]);
+  const [edit, setEdit] = useState(true);
   // Grab parameters from url
   const { fname, lname, age } = useParams();
 
@@ -35,22 +35,56 @@ export default function UserDetail() {
   }, [loaded])
 
   return (
-    <div className='userDetails'>
+    <div className='userDetailWrapper'>
+      <h1>Edit User Details</h1>
       {loaded ?
         person.map((item) => {
           return (
-            <div className='dataEntry'>
-              <div>{item.first_name}</div>
-              <div>{item.last_name}</div>
-              <AddressPipe
-                address={item.address}
-              />
-              <div>{item.gender}</div>
-              <div>{item.age}</div>
-              <AmountPipe
-                order={item.order_total}
-                currency={currency}
-              />
+            <div className='userDetails'>
+              <div className='userDetail' id='fname'>
+                <label>First Name: </label>
+                <input type="text" value={item.first_name} />
+              </div>
+              <div className='userDetail' id='lname'>
+                <label>Last Name: </label>
+                <input type="text" value={item.last_name} />
+              </div>
+              <div className='userDetail' id='address1'>
+                <label>Street Address: </label>
+                <input type="text" value={item.address.address1} />
+              </div>
+              <div className='userDetail' id='apt'>
+                <label>Apt: </label>
+                <input type="text" value={item.address.address2} />
+              </div>
+              <div className='userDetail' id='city'>
+                <label>City: </label>
+                <input type="text" value={item.address.city} />
+              </div>
+              <div className='userDetail' id='state'>
+                <label>State: </label>
+                <input type="text" value={item.address.state} />
+              </div>
+              <div className='userDetail' id='zip'>
+                <label>ZIP Code: </label>
+                <input type="text" value={item.address.zip} />
+              </div>
+              <div className='userDetail' id='gender'>
+                <label>Gender: </label>
+                <input type="text" value={item.gender} />
+              </div>
+              <div className='userDetail' id='age'>
+                <label>Age: </label>
+                <input type="text" value={item.age} />
+              </div>
+              <div className='userDetail' id='orderTotal'>
+                <label>Order Total: </label>
+                <AmountPipe
+                  order={item.order_total}
+                  currency={currency}
+                  edit={edit}
+                />
+              </div>
             </div>
           )
         })

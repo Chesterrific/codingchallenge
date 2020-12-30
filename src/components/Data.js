@@ -18,7 +18,7 @@ export default function Data({ loaded, filteredList, currency }) {
         <div>Order Amount</div>
       </div>
       {loaded ?
-        <div>
+        <div className='dataWrapper'>
           {
             filteredList.map((item) => {
               return (

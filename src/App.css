@@ -70,8 +70,28 @@ body {
   background-color: lightgray
 }
 
+.userDetailWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
 .userDetails {
   display: flex;
-  height: 100vh;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.userDetail {
+  display: flex;
+  justify-content: space-between;
+}
+
+.userDetail>label {
+  margin-right: 20px;
+}
+
+.userDetail>input, .orderTotal>input {
+  width: 150px;
 }
