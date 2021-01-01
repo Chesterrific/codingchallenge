@@ -16,9 +16,9 @@ function App() {
   useEffect(() => {
     checkLogin();
     setLoaded(true);
+
   }, [])
 
-  // Functions
   const checkLogin = () => {
     // If "loginStatus" is not found in local storage.
     if (localStorage.getItem('loginStatus') === null) {

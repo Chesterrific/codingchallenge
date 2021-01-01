@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function AmountPipe({ order, currency, edit }) {
+export default function AmountPipe({ order, currency, edit, localTotal, totalHandler }) {
 
   var decodeSymbol = function (str) {
     return str.replace(/&#(\d+);/g, function (match, dec) {
@@ -16,12 +16,10 @@ export default function AmountPipe({ order, currency, edit }) {
             if (item.currency === order.currency) {
               return (decodeSymbol(item.symbol))
             }
+            return '';
           })}
         </span>
-        <input type="number" value={
-          parseFloat(order.amount).toFixed(2)
-        }
-        />
+        <input type="text" value={localTotal} onChange={totalHandler} />
       </div>
     )
   } else {
