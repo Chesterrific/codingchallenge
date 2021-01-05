@@ -8,6 +8,7 @@ export default function UserDetail({ data, currency, loaded }) {
 
   // States
   const [person, setPerson] = useState([]);
+  const [id, setID] = useState('');
 
   const [localFName, setFName] = useState('');
   const [localLName, setLName] = useState('');
@@ -23,11 +24,16 @@ export default function UserDetail({ data, currency, loaded }) {
   // Grab parameters from url
   const { fname, lname, age } = useParams();
 
-  // Faux establish connection with server for json file data
   useEffect(() => {
     setPerson(data.filter(item => item.first_name.toLowerCase().includes(fname.toLowerCase())
       && item.last_name.toLowerCase().includes(lname.toLowerCase())
       && parseFloat(item.age) === parseFloat(age)));
+
+    setID(person.map((item) => {
+      return (
+        item.first_name + item.last_name + item.age
+      )
+    }))
   }, []);
 
   useEffect(() => {
@@ -95,6 +101,28 @@ export default function UserDetail({ data, currency, loaded }) {
     console.log(localGender);
     console.log(localAge);
     console.log(localTotal);
+
+    // setPerson(person.map((item) => {
+    //   return {
+    //     ...item,
+    //     first_name: localFName,
+    //     last_name: localLName,
+    //     address: {
+    //       ...item.address,
+    //       address1: localStr,
+    //       address2: localApt,
+    //       city: localCity,
+    //       state: localState,
+    //       zip: localZip
+    //     },
+    //     gender: localGender,
+    //     age: localAge,
+    //     order_total: {
+    //       ...item.order_total,
+    //       amount: localTotal
+    //     }
+    //   }
+    // }))
   }
 
   const deleteHandler = () => {
@@ -111,7 +139,7 @@ export default function UserDetail({ data, currency, loaded }) {
       {loaded ?
         person.map((item) => {
           return (
-            <div className='userDetails' key={item.first_name + item.last_name + item.age}>
+            <div className='userDetails' key={item.id}>
               <div className='userDetail' id='fname'>
                 <label>First Name: </label>
                 <input type="text" value={localFName} onChange={fNameHandler} />

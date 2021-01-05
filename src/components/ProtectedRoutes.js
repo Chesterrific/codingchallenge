@@ -21,10 +21,27 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
     if (!login) {
       return null;
     }
-    setData(DataFile);
+    if (localStorage.getItem('data') === null || isEmpty(JSON.parse(localStorage.getItem('data')))) {
+      localStorage.setItem('data', JSON.stringify(DataFile));
+      console.log('data set to local');
+    }
+    setData(JSON.parse(localStorage.getItem('data')));
     setCurrency(CurrencyFile);
     setLoaded(true);
   }, [])
+
+  // Adding unique IDs to each entry
+  useEffect(() => {
+    if (!loaded) {
+      return
+    }
+    setData(data.map((item) => {
+      return {
+        ...item,
+        id: item.first_name + item.last_name + item.age + Math.random() * 1000
+      }
+    }))
+  }, [loaded])
 
   // Redirect to login page if login state is false.
   if (!login) {
@@ -33,6 +50,18 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
       <Redirect to='/login' />
     )
   }
+
+  const isEmpty = (obj) => {
+    for (var i in obj) {
+      if (obj.hasOwnProperty(i))
+        return false
+    }
+    return true;
+  }
+
+
+
+
 
   return (
     <div>
