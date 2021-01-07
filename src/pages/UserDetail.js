@@ -4,11 +4,10 @@ import { useParams } from 'react-router-dom';
 // Components
 import AmountPipe from '../components/AmountPipe.js';
 
-export default function UserDetail({ data, currency, loaded }) {
+export default function UserDetail({ data, setData, currency, loaded }) {
 
   // States
   const [person, setPerson] = useState([]);
-  const [id, setID] = useState('');
 
   const [localFName, setFName] = useState('');
   const [localLName, setLName] = useState('');
@@ -29,11 +28,6 @@ export default function UserDetail({ data, currency, loaded }) {
       && item.last_name.toLowerCase().includes(lname.toLowerCase())
       && parseFloat(item.age) === parseFloat(age)));
 
-    setID(person.map((item) => {
-      return (
-        item.first_name + item.last_name + item.age
-      )
-    }))
   }, []);
 
   useEffect(() => {
@@ -89,7 +83,7 @@ export default function UserDetail({ data, currency, loaded }) {
     setTotal(e.target.value);
   }
 
-  const submitHandler = () => {
+  const submitHandler = (id) => {
     console.log('submit');
     console.log(localFName);
     console.log(localLName);
@@ -101,6 +95,38 @@ export default function UserDetail({ data, currency, loaded }) {
     console.log(localGender);
     console.log(localAge);
     console.log(localTotal);
+
+    const newDetails = data.map((item) => {
+      console.log(item.id);
+      console.log(id.toString());
+      if (item.id === id.toString()) {
+        const updatedItem = {
+          ...item,
+          first_name: localFName.toString(),
+          last_name: localLName.toString(),
+          address: {
+            ...item.address,
+            address1: localStr.toString(),
+            address2: localApt.toString(),
+            city: localCity.toString(),
+            state: localState.toString(),
+            zip: localZip.toString(),
+          },
+          gender: localGender.toString(),
+          age: parseInt(localAge.toString()),
+          order_total: {
+            ...item.order_total,
+            amount: parseFloat(localTotal.toString()),
+          },
+        };
+        return updatedItem;
+      }
+
+      return item;
+    });
+
+    setData(newDetails);
+
 
     // setPerson(person.map((item) => {
     //   return {
@@ -133,7 +159,9 @@ export default function UserDetail({ data, currency, loaded }) {
     <div className='userDetailWrapper'>
       <h1>User Details</h1>
       <div className='options'>
-        <button onClick={submitHandler}>Submit Changes</button>
+        <button onClick={() => submitHandler(person.map((item) => {
+          return item.id;
+        }))}>Submit Changes</button>
         <button onClick={deleteHandler}>Delete User</button>
       </div>
       {loaded ?

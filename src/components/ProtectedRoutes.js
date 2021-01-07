@@ -21,10 +21,16 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
     if (!login) {
       return null;
     }
-    if (localStorage.getItem('data') === null || isEmpty(JSON.parse(localStorage.getItem('data')))) {
-      localStorage.setItem('data', JSON.stringify(DataFile));
-      console.log('data set to local');
+    try {
+      if (localStorage.getItem('data') === null || isEmpty(JSON.parse(localStorage.getItem('data')))) {
+        setLocalData();
+      }
+    } catch (e) {
+      alert(e + '\n\n Resetting data.');
+      console.error(e);
+      setLocalData();
     }
+
     setData(JSON.parse(localStorage.getItem('data')));
     setCurrency(CurrencyFile);
     setLoaded(true);
@@ -43,6 +49,14 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
     }))
   }, [loaded])
 
+  // If data has been updated, update local storage copy.
+  useEffect(() => {
+    if (!loaded) {
+      return
+    }
+    localStorage.setItem('data', JSON.stringify(data));
+  }, [data])
+
   // Redirect to login page if login state is false.
   if (!login) {
     console.log('redirecting to login');
@@ -59,9 +73,10 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
     return true;
   }
 
-
-
-
+  const setLocalData = () => {
+    localStorage.setItem('data', JSON.stringify(DataFile));
+    console.log('data set to local');
+  }
 
   return (
     <div>
@@ -74,6 +89,7 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
         <Route path={path + 'userdetails/:fname/:lname/:age'} exact>
           <UserDetail
             data={data}
+            setData={setData}
             currency={currency}
             loaded={loaded}
           />
