@@ -41,12 +41,16 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
     if (!loaded) {
       return
     }
-    setData(data.map((item) => {
-      return {
-        ...item,
-        id: item.first_name + item.last_name + item.age + Math.random() * 1000
+
+    const addIDs = data.map((person) => {
+      const updatedPerson = {
+        ...person,
+        id: person.first_name + person.last_name + person.age + Math.random() * 1000,
       }
-    }))
+      return updatedPerson;
+    });
+
+    setData(addIDs);
   }, [loaded])
 
   // If data has been updated, update local storage copy.
@@ -54,7 +58,9 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
     if (!loaded) {
       return
     }
+
     localStorage.setItem('data', JSON.stringify(data));
+
   }, [data])
 
   // Redirect to login page if login state is false.
@@ -65,6 +71,7 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
     )
   }
 
+  // Simple function that checks if an object is empty.
   const isEmpty = (obj) => {
     for (var i in obj) {
       if (obj.hasOwnProperty(i))

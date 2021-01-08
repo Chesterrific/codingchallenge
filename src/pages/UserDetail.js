@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 // Components
 import AmountPipe from '../components/AmountPipe.js';
@@ -8,7 +8,6 @@ export default function UserDetail({ data, setData, currency, loaded }) {
 
   // States
   const [person, setPerson] = useState([]);
-
   const [localFName, setFName] = useState('');
   const [localLName, setLName] = useState('');
   const [localStr, setStr] = useState('');
@@ -23,12 +22,14 @@ export default function UserDetail({ data, setData, currency, loaded }) {
   // Grab parameters from url
   const { fname, lname, age } = useParams();
 
+  let history = useHistory();
+
   useEffect(() => {
     setPerson(data.filter(item => item.first_name.toLowerCase().includes(fname.toLowerCase())
       && item.last_name.toLowerCase().includes(lname.toLowerCase())
       && parseFloat(item.age) === parseFloat(age)));
 
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     setFName(person.map((item) => { return item.first_name }));
@@ -43,6 +44,7 @@ export default function UserDetail({ data, setData, currency, loaded }) {
     setTotal(person.map((item) => { return item.order_total.amount }));
   }, [person])
 
+  // Set various states to input values.
   const fNameHandler = (e) => {
     setFName(e.target.value);
   }
@@ -85,20 +87,9 @@ export default function UserDetail({ data, setData, currency, loaded }) {
 
   const submitHandler = (id) => {
     console.log('submit');
-    console.log(localFName);
-    console.log(localLName);
-    console.log(localStr);
-    console.log(localApt);
-    console.log(localCity);
-    console.log(localState);
-    console.log(localZip);
-    console.log(localGender);
-    console.log(localAge);
-    console.log(localTotal);
 
+    // Find and update current person through ID.
     const newDetails = data.map((item) => {
-      console.log(item.id);
-      console.log(id.toString());
       if (item.id === id.toString()) {
         const updatedItem = {
           ...item,
@@ -114,6 +105,7 @@ export default function UserDetail({ data, setData, currency, loaded }) {
           },
           gender: localGender.toString(),
           age: parseInt(localAge.toString()),
+          id: localFName.toString() + localLName.toString() + parseInt(localAge.toString()) + Math.random() * 1000,
           order_total: {
             ...item.order_total,
             amount: parseFloat(localTotal.toString()),
@@ -121,38 +113,27 @@ export default function UserDetail({ data, setData, currency, loaded }) {
         };
         return updatedItem;
       }
-
       return item;
     });
 
     setData(newDetails);
+    alert('User: ' + id + ' has been updated.');
 
-
-    // setPerson(person.map((item) => {
-    //   return {
-    //     ...item,
-    //     first_name: localFName,
-    //     last_name: localLName,
-    //     address: {
-    //       ...item.address,
-    //       address1: localStr,
-    //       address2: localApt,
-    //       city: localCity,
-    //       state: localState,
-    //       zip: localZip
-    //     },
-    //     gender: localGender,
-    //     age: localAge,
-    //     order_total: {
-    //       ...item.order_total,
-    //       amount: localTotal
-    //     }
-    //   }
-    // }))
+    // Route back to main page.
+    history.push('/');
   }
 
-  const deleteHandler = () => {
+  const deleteHandler = (id) => {
     console.log('delete');
+
+    // Filter out item with matching id.
+    const newList = data.filter(item => item.id !== id.toString());
+
+    setData(newList);
+    alert('User: ' + person.map((item) => { return item.id; }) + ' has been deleted.');
+
+    // Route back to main page.
+    history.push('/');
   }
 
   return (
@@ -162,7 +143,9 @@ export default function UserDetail({ data, setData, currency, loaded }) {
         <button onClick={() => submitHandler(person.map((item) => {
           return item.id;
         }))}>Submit Changes</button>
-        <button onClick={deleteHandler}>Delete User</button>
+        <button onClick={() => deleteHandler(person.map((item) => {
+          return item.id;
+        }))}>Delete User</button>
       </div>
       {loaded ?
         person.map((item) => {

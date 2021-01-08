@@ -7,7 +7,7 @@ export default function AmountPipe({ order, currency, edit, localTotal, totalHan
       return String.fromCharCode(dec);
     });
   };
-
+  // Return an input field if 'edit' is true.
   if (edit) {
     return (
       <div className='orderTotal'>
