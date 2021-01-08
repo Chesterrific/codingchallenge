@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/codingchallenge/static/css/main.1cbb3522.chunk.css",
+    "main.js": "/codingchallenge/static/js/main.021192f3.chunk.js",
+    "main.js.map": "/codingchallenge/static/js/main.021192f3.chunk.js.map",
+    "runtime-main.js": "/codingchallenge/static/js/runtime-main.a84fae2f.js",
+    "runtime-main.js.map": "/codingchallenge/static/js/runtime-main.a84fae2f.js.map",
+    "static/js/2.29fe8afc.chunk.js": "/codingchallenge/static/js/2.29fe8afc.chunk.js",
+    "static/js/2.29fe8afc.chunk.js.map": "/codingchallenge/static/js/2.29fe8afc.chunk.js.map",
+    "index.html": "/codingchallenge/index.html",
+    "static/css/main.1cbb3522.chunk.css.map": "/codingchallenge/static/css/main.1cbb3522.chunk.css.map",
+    "static/js/2.29fe8afc.chunk.js.LICENSE.txt": "/codingchallenge/static/js/2.29fe8afc.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a84fae2f.js",
+    "static/js/2.29fe8afc.chunk.js",
+    "static/css/main.1cbb3522.chunk.css",
+    "static/js/main.021192f3.chunk.js"
+  ]
+}
