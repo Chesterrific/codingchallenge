@@ -2,6 +2,7 @@ import React from 'react'
 
 export default function Navigation({ setLogin, username }) {
 
+  // Sets login state to false.
   const submitLogOut = () => {
     localStorage.setItem('loginStatus', 'false');
     setLogin(false);

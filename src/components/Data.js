@@ -17,6 +17,7 @@ export default function Data({ loaded, filteredList, currency }) {
         <div>Age</div>
         <div>Order Amount</div>
       </div>
+      {/* If loaded is true, map through each item in the filtered list and add a link to this page. */}
       {loaded ?
         <div className='dataWrapper'>
           {

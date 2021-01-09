@@ -124,13 +124,16 @@ export default function UserDetail({ data, setData, currency, loaded }) {
   }
 
   const deleteHandler = (id) => {
-    console.log('delete');
+    // variable d to confirm user deletion.
+    let d = window.confirm("Delete User?");
 
-    // Filter out item with matching id.
-    const newList = data.filter(item => item.id !== id.toString());
+    if (d) {
+      // Filter out item with matching id.
+      const newList = data.filter(item => item.id !== id.toString());
 
-    setData(newList);
-    alert('User: ' + person.map((item) => { return item.id; }) + ' has been deleted.');
+      setData(newList);
+      alert('User: ' + person.map((item) => { return item.id; }) + ' has been deleted.');
+    }
 
     // Route back to main page.
     history.push('/');

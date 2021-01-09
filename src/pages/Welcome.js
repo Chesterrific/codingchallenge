@@ -23,6 +23,7 @@ export default function Welcome({ data, currency, loaded }) {
     searchDetailHandler();
   }, [search, criteria]);
 
+  // Switch list filter based on "criteria".
   const searchDetailHandler = () => {
     switch (criteria) {
       case 'fName':

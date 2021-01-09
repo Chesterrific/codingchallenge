@@ -2,22 +2,26 @@ import React from 'react'
 
 export default function AmountPipe({ order, currency, edit, localTotal, totalHandler }) {
 
-  var decodeSymbol = function (str) {
+  // Decodes html character code to display actual symbol.
+  const decodeSymbol = (str) => {
     return str.replace(/&#(\d+);/g, function (match, dec) {
       return String.fromCharCode(dec);
     });
   };
+
   // Return an input field if 'edit' is true.
   if (edit) {
     return (
       <div className='orderTotal'>
-        <span>{
-          currency.map((item) => {
-            if (item.currency === order.currency) {
-              return (decodeSymbol(item.symbol))
-            }
-            return '';
-          })}
+        <span>
+          {    // Map through currency_symbols.json to match character code and display appropriate currency symbol.
+            currency.map((item) => {
+              if (item.currency === order.currency) {
+                return (decodeSymbol(item.symbol))
+              }
+              return '';
+            })
+          }
         </span>
         <input type="text" value={localTotal} onChange={totalHandler} />
       </div>
@@ -25,11 +29,14 @@ export default function AmountPipe({ order, currency, edit, localTotal, totalHan
   } else {
     return (
       <div className='orderTotal'>
-        {currency.map((item) => {
-          if (item.currency === order.currency) {
-            return (decodeSymbol(item.symbol) + parseFloat(order.amount).toFixed(2));
-          }
-        })}
+        {  // Map through currency_symbols.json to match character code and display appropriate currency symbol.
+          currency.map((item) => {
+            if (item.currency === order.currency) {
+              // Parse order.amount to two decimal places.
+              return (decodeSymbol(item.symbol) + parseFloat(order.amount).toFixed(2));
+            }
+          })
+        }
       </div>
     )
   }

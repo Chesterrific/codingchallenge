@@ -23,6 +23,7 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
     }
     try {
       if (localStorage.getItem('data') === null || isEmpty(JSON.parse(localStorage.getItem('data')))) {
+        alert('User list is empty. Resetting data.');
         setLocalData();
       }
     } catch (e) {
@@ -80,6 +81,7 @@ export default function ProtectedRoutes({ login, setLogin, username, path }) {
     return true;
   }
 
+  // Function to set sample data to local storage.
   const setLocalData = () => {
     localStorage.setItem('data', JSON.stringify(DataFile));
     console.log('data set to local');
